@@ -2,6 +2,10 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import com.example.demo.exceptions.InvalidReferenceException;
+import com.example.demo.exceptions.NullValueException;
+import com.example.demo.exceptions.ResourceNotFoundException;
+import com.example.demo.repository.ArticleRepositoryMemory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +41,7 @@ public class ArticleService {
         Article article = articleRepository.findById(id);
         Member member = memberRepository.findById(article.getAuthorId());
         Board board = boardRepository.findById(article.getBoardId());
+
         return ArticleResponse.of(article, member, board);
     }
 
@@ -46,6 +51,7 @@ public class ArticleService {
             .map(article -> {
                 Member member = memberRepository.findById(article.getAuthorId());
                 Board board = boardRepository.findById(article.getBoardId());
+
                 return ArticleResponse.of(article, member, board);
             })
             .toList();
@@ -53,30 +59,44 @@ public class ArticleService {
 
     @Transactional
     public ArticleResponse create(ArticleCreateRequest request) {
+        if (request.author_id() == null || request.board_id() == null || request.title() == null || request.content() == null) {
+            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.");
+        }
+
         Article article = new Article(
-            request.authorId(),
-            request.boardId(),
+            request.author_id(),
+            request.board_id(),
             request.title(),
-            request.description()
+            request.content()
         );
         Article saved = articleRepository.insert(article);
         Member member = memberRepository.findById(saved.getAuthorId());
         Board board = boardRepository.findById(saved.getBoardId());
+
         return ArticleResponse.of(saved, member, board);
     }
 
     @Transactional
     public ArticleResponse update(Long id, ArticleUpdateRequest request) {
         Article article = articleRepository.findById(id);
-        article.update(request.boardId(), request.title(), request.description());
+
+        if (request.board_id() == null || request.title() == null || request.content() == null) {
+            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.");
+        }
+
+        article.update(request.board_id(), request.title(), request.content());
         Article updated = articleRepository.update(article);
+
         Member member = memberRepository.findById(updated.getAuthorId());
         Board board = boardRepository.findById(article.getBoardId());
+
         return ArticleResponse.of(article, member, board);
     }
 
     @Transactional
     public void delete(Long id) {
+        Article article = articleRepository.findById(id);
+
         articleRepository.deleteById(id);
     }
 }

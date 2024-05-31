@@ -15,4 +15,8 @@ public interface MemberRepository {
     Member update(Member member);
 
     void deleteById(Long id);
+
+    Member findByEmail(String email);
+
+    boolean hasArticles(Long memberId);
 }

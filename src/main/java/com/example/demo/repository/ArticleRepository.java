@@ -18,5 +18,6 @@ public interface ArticleRepository {
 
     Article update(Article article);
 
+
     void deleteById(Long id);
 }

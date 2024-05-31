@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.example.demo.domain.Article;
 import com.example.demo.domain.Board;
 
 public class BoardRepositoryMemory implements BoardRepository {
 
     private static final Map<Long, Board> boards = new HashMap<>();
+    private static final Map<Long, Article> articles = new HashMap<>();
     private static final AtomicLong autoincrement = new AtomicLong(1);
 
     static {
@@ -46,5 +48,11 @@ public class BoardRepositoryMemory implements BoardRepository {
     @Override
     public Board update(Board board) {
         return boards.put(board.getId(), board);
+    }
+
+    @Override
+    public boolean hasArticles(Long boardId) {
+        return articles.values().stream()
+                .anyMatch(article -> article.getBoardId().equals(boardId));
     }
 }

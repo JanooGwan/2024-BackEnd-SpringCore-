@@ -1,9 +1,9 @@
 package com.example.demo.controller.dto.request;
 
 public record ArticleUpdateRequest(
-    Long boardId,
+    Long board_id,
     String title,
-    String description
+    String content
 ) {
 
 }

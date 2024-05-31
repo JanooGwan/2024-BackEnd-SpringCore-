@@ -2,6 +2,9 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import com.example.demo.exceptions.InvalidReferenceException;
+import com.example.demo.exceptions.NullValueException;
+import com.example.demo.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +37,10 @@ public class BoardService {
 
     @Transactional
     public BoardResponse createBoard(BoardCreateRequest request) {
+        if (request.name() == null) {
+            throw new NullValueException("요청에 필요한 항목이 누락 됐습니다.");
+        }
+
         Board board = new Board(request.name());
         Board saved = boardRepository.insert(board);
         return BoardResponse.from(saved);
@@ -41,12 +48,18 @@ public class BoardService {
 
     @Transactional
     public void deleteBoard(Long id) {
+        Board board = boardRepository.findById(id);
+
         boardRepository.deleteById(id);
     }
 
     @Transactional
     public BoardResponse update(Long id, BoardUpdateRequest request) {
         Board board = boardRepository.findById(id);
+        if (request.name() == null) {
+            throw new NullValueException("요청에 필요한 항목이 누락 됐습니다.");
+        }
+
         board.update(request.name());
         Board updated = boardRepository.update(board);
         return BoardResponse.from(updated);

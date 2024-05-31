@@ -3,6 +3,8 @@ package com.example.demo.repository;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+import com.example.demo.exceptions.InvalidReferenceException;
+import com.example.demo.exceptions.ResourceNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -35,11 +37,16 @@ public class BoardRepositoryJdbc implements BoardRepository {
 
     @Override
     public Board findById(Long id) {
-        return jdbcTemplate.queryForObject("""
+        try {
+            return jdbcTemplate.queryForObject("""
             SELECT id, name
             FROM board
             WHERE id = ?
             """, boardRowMapper, id);
+        }
+        catch (Exception e) {
+            throw new ResourceNotFoundException("해당 게시판을 찾을 수 없습니다.");
+        }
     }
 
     @Override
@@ -57,9 +64,14 @@ public class BoardRepositoryJdbc implements BoardRepository {
 
     @Override
     public void deleteById(Long id) {
-        jdbcTemplate.update("""
-            DELETE FROM board WHERE id = ?
+        try {
+            jdbcTemplate.update("""
+                    DELETE FROM board WHERE id = ?
             """, id);
+        }
+        catch (Exception e) {
+            throw new InvalidReferenceException("해당 게시판에 게시글이 있어 삭제할 수 없습니다.");
+        }
     }
 
     @Override
@@ -68,5 +80,10 @@ public class BoardRepositoryJdbc implements BoardRepository {
             UPDATE board SET name = ? WHERE id = ?
             """, boardRowMapper, board.getName(), board.getId()
         );
+    }
+
+    @Override
+    public boolean hasArticles(Long memberId) {
+        return false;
     }
 }

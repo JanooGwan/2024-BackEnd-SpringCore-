@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.example.demo.domain.Article;
 
 public class ArticleRepositoryMemory implements ArticleRepository {
-
     private static final Map<Long, Article> articles = new HashMap<>();
     private static final AtomicLong autoincrement = new AtomicLong(1);
 
@@ -49,6 +48,7 @@ public class ArticleRepositoryMemory implements ArticleRepository {
         return articles.getOrDefault(id, null);
     }
 
+
     @Override
     public Article insert(Article article) {
         long id = autoincrement.getAndIncrement();
@@ -67,4 +67,5 @@ public class ArticleRepositoryMemory implements ArticleRepository {
     public void deleteById(Long id) {
         articles.remove(id);
     }
+
 }

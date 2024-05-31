@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.example.demo.domain.Article;
 import com.example.demo.domain.Member;
 
 public class MemberRepositoryMemory implements MemberRepository {
 
     private static final Map<Long, Member> members = new HashMap<>();
+    private static final Map<Long, Article> articles = new HashMap<>();
     private static final AtomicLong autoincrement = new AtomicLong(1);
 
     static {
@@ -49,4 +51,19 @@ public class MemberRepositoryMemory implements MemberRepository {
     public void deleteById(Long id) {
         members.remove(id);
     }
+
+    @Override
+    public Member findByEmail(String email) {
+        return members.values().stream()
+                .filter(member -> member.getEmail().equals(email))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public boolean hasArticles(Long memberId) {
+        return articles.values().stream()
+                .anyMatch(article -> article.getAuthorId().equals(memberId));
+    }
+
 }

@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+import com.example.demo.exceptions.ResourceNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -57,12 +58,17 @@ public class ArticleRepositoryJdbc implements ArticleRepository {
     }
 
     @Override
-    public Article findById(Long id) {
-        return jdbcTemplate.queryForObject("""
-            SELECT id,  board_id,  author_id,  title,  content,  created_date,  modified_date
-            FROM article
-            WHERE id = ?
+    public Article findById(Long id)  {
+        try {
+            Article article = jdbcTemplate.queryForObject("""
+            SELECT id,  board_id,  author_id,  title,  content,  created_date,  modified_date FROM article WHERE id = ?
             """, articleRowMapper, id);
+            return article;
+        }
+
+        catch (Exception e) {
+            throw new ResourceNotFoundException("해당 회원을 찾을 수 없습니다.");
+        }
     }
 
     @Override
@@ -97,6 +103,7 @@ public class ArticleRepositoryJdbc implements ArticleRepository {
         );
         return findById(article.getId());
     }
+
 
     @Override
     public void deleteById(Long id) {
