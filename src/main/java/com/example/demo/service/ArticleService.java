@@ -28,9 +28,9 @@ public class ArticleService {
     private final BoardRepository boardRepository;
 
     public ArticleService(
-        ArticleRepository articleRepository,
-        MemberRepository memberRepository,
-        BoardRepository boardRepository
+            ArticleRepository articleRepository,
+            MemberRepository memberRepository,
+            BoardRepository boardRepository
     ) {
         this.articleRepository = articleRepository;
         this.memberRepository = memberRepository;
@@ -48,13 +48,13 @@ public class ArticleService {
     public List<ArticleResponse> getByBoardId(Long boardId) {
         List<Article> articles = articleRepository.findAllByBoardId(boardId);
         return articles.stream()
-            .map(article -> {
-                Member member = memberRepository.findById(article.getAuthorId());
-                Board board = boardRepository.findById(article.getBoardId());
+                .map(article -> {
+                    Member member = memberRepository.findById(article.getAuthorId());
+                    Board board = boardRepository.findById(article.getBoardId());
 
-                return ArticleResponse.of(article, member, board);
-            })
-            .toList();
+                    return ArticleResponse.of(article, member, board);
+                })
+                .toList();
     }
 
     @Transactional
@@ -64,10 +64,10 @@ public class ArticleService {
         }
 
         Article article = new Article(
-            request.author_id(),
-            request.board_id(),
-            request.title(),
-            request.content()
+                request.author_id(),
+                request.board_id(),
+                request.title(),
+                request.content()
         );
         Article saved = articleRepository.insert(article);
         Member member = memberRepository.findById(saved.getAuthorId());

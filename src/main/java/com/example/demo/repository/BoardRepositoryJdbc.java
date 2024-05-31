@@ -23,28 +23,27 @@ public class BoardRepositoryJdbc implements BoardRepository {
     }
 
     private static final RowMapper<Board> boardRowMapper = (rs, rowNum) -> new Board(
-        rs.getLong("id"),
-        rs.getString("name")
+            rs.getLong("id"),
+            rs.getString("name")
     );
 
     @Override
     public List<Board> findAll() {
         return jdbcTemplate.query("""
-            SELECT id, name
-            FROM board
-            """, boardRowMapper);
+                SELECT id, name
+                FROM board
+                """, boardRowMapper);
     }
 
     @Override
     public Board findById(Long id) {
         try {
             return jdbcTemplate.queryForObject("""
-            SELECT id, name
-            FROM board
-            WHERE id = ?
-            """, boardRowMapper, id);
-        }
-        catch (Exception e) {
+                    SELECT id, name
+                    FROM board
+                    WHERE id = ?
+                    """, boardRowMapper, id);
+        } catch (Exception e) {
             throw new ResourceNotFoundException("해당 게시판을 찾을 수 없습니다.");
         }
     }
@@ -54,8 +53,8 @@ public class BoardRepositoryJdbc implements BoardRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement("""
-                INSERT INTO board (name) VALUES (?)
-                """, new String[]{"id"});
+                    INSERT INTO board (name) VALUES (?)
+                    """, new String[]{"id"});
             ps.setString(1, board.getName());
             return ps;
         }, keyHolder);
@@ -66,10 +65,9 @@ public class BoardRepositoryJdbc implements BoardRepository {
     public void deleteById(Long id) {
         try {
             jdbcTemplate.update("""
-                    DELETE FROM board WHERE id = ?
-            """, id);
-        }
-        catch (Exception e) {
+                            DELETE FROM board WHERE id = ?
+                    """, id);
+        } catch (Exception e) {
             throw new InvalidReferenceException("해당 게시판에 게시글이 있어 삭제할 수 없습니다.");
         }
     }
@@ -77,8 +75,8 @@ public class BoardRepositoryJdbc implements BoardRepository {
     @Override
     public Board update(Board board) {
         return jdbcTemplate.queryForObject("""
-            UPDATE board SET name = ? WHERE id = ?
-            """, boardRowMapper, board.getName(), board.getId()
+                UPDATE board SET name = ? WHERE id = ?
+                """, boardRowMapper, board.getName(), board.getId()
         );
     }
 

@@ -22,11 +22,11 @@ public class BoardRepositoryMemory implements BoardRepository {
     @Override
     public List<Board> findAll() {
         return boards.entrySet().stream()
-            .map(it -> {
-                Board board = it.getValue();
-                board.setId(it.getKey());
-                return board;
-            }).toList();
+                .map(it -> {
+                    Board board = it.getValue();
+                    board.setId(it.getKey());
+                    return board;
+                }).toList();
     }
 
     @Override

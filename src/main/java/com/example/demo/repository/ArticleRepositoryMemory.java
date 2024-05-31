@@ -14,33 +14,33 @@ public class ArticleRepositoryMemory implements ArticleRepository {
     @Override
     public List<Article> findAll() {
         return articles.entrySet().stream()
-            .map(it -> {
-                Article article = it.getValue();
-                article.setId(it.getKey());
-                return article;
-            }).toList();
+                .map(it -> {
+                    Article article = it.getValue();
+                    article.setId(it.getKey());
+                    return article;
+                }).toList();
     }
 
     @Override
     public List<Article> findAllByBoardId(Long boardId) {
         return articles.entrySet().stream()
-            .filter(it -> it.getValue().getBoardId().equals(boardId))
-            .map(it -> {
-                Article article = it.getValue();
-                article.setId(it.getKey());
-                return article;
-            }).toList();
+                .filter(it -> it.getValue().getBoardId().equals(boardId))
+                .map(it -> {
+                    Article article = it.getValue();
+                    article.setId(it.getKey());
+                    return article;
+                }).toList();
     }
 
     @Override
     public List<Article> findAllByMemberId(Long memberId) {
         return articles.entrySet().stream()
-            .filter(it -> it.getValue().getAuthorId().equals(memberId))
-            .map(it -> {
-                Article article = it.getValue();
-                article.setId(it.getKey());
-                return article;
-            }).toList();
+                .filter(it -> it.getValue().getAuthorId().equals(memberId))
+                .map(it -> {
+                    Article article = it.getValue();
+                    article.setId(it.getKey());
+                    return article;
+                }).toList();
     }
 
     @Override
