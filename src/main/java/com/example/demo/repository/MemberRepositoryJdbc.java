@@ -79,9 +79,12 @@ public class MemberRepositoryJdbc implements MemberRepository {
                     WHERE id = ?
                     """, member.getName(), member.getEmail(), member.getId());
             return findById(member.getId());
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
             throw new InvalidReferenceException("해당 이메일로 가입한 회원이 존재합니다.");
         }
+
     }
 
     @Override

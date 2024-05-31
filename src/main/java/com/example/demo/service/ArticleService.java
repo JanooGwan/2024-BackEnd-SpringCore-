@@ -78,12 +78,11 @@ public class ArticleService {
 
     @Transactional
     public ArticleResponse update(Long id, ArticleUpdateRequest request) {
-        Article article = articleRepository.findById(id);
-
         if (request.board_id() == null || request.title() == null || request.content() == null) {
             throw new NullValueException("요청에 필요한 항목이 누락됐습니다.");
         }
 
+        Article article = articleRepository.findById(id);
         article.update(request.board_id(), request.title(), request.content());
         Article updated = articleRepository.update(article);
 

@@ -65,7 +65,7 @@ public class MemberService {
         }
 
         Member member = memberRepository.findById(id);
-
+        member.update(request.name(), request.email());
         memberRepository.update(member);
         return MemberResponse.from(member);
     }

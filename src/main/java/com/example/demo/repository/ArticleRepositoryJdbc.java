@@ -67,7 +67,7 @@ public class ArticleRepositoryJdbc implements ArticleRepository {
         }
 
         catch (Exception e) {
-            throw new ResourceNotFoundException("해당 회원을 찾을 수 없습니다.");
+            throw new ResourceNotFoundException("해당 게시글을 찾을 수 없습니다.");
         }
     }
 
