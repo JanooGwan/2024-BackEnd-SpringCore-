@@ -80,8 +80,4 @@ public class BoardRepositoryJdbc implements BoardRepository {
         );
     }
 
-    @Override
-    public boolean hasArticles(Long memberId) {
-        return false;
-    }
 }

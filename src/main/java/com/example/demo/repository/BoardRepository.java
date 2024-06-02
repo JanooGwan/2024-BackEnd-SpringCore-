@@ -16,5 +16,4 @@ public interface BoardRepository {
 
     Board update(Board board);
 
-    boolean hasArticles(Long memberId);
 }

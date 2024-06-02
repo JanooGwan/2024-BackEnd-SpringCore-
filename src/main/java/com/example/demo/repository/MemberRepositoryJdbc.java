@@ -97,13 +97,4 @@ public class MemberRepositoryJdbc implements MemberRepository {
         }
     }
 
-    @Override
-    public Member findByEmail(String email) {
-        return null;
-    }
-
-    @Override
-    public boolean hasArticles(Long memberId) {
-        return false;
-    }
 }

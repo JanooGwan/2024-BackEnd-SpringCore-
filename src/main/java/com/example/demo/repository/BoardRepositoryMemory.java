@@ -49,10 +49,4 @@ public class BoardRepositoryMemory implements BoardRepository {
     public Board update(Board board) {
         return boards.put(board.getId(), board);
     }
-
-    @Override
-    public boolean hasArticles(Long boardId) {
-        return articles.values().stream()
-                .anyMatch(article -> article.getBoardId().equals(boardId));
-    }
 }

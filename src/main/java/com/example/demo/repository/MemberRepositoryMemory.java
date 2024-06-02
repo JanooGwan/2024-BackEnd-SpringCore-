@@ -52,18 +52,5 @@ public class MemberRepositoryMemory implements MemberRepository {
         members.remove(id);
     }
 
-    @Override
-    public Member findByEmail(String email) {
-        return members.values().stream()
-                .filter(member -> member.getEmail().equals(email))
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
-    public boolean hasArticles(Long memberId) {
-        return articles.values().stream()
-                .anyMatch(article -> article.getAuthorId().equals(memberId));
-    }
 
 }
