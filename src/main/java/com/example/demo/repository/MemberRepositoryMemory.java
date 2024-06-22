@@ -16,7 +16,7 @@ public class MemberRepositoryMemory implements MemberRepository {
 
     static {
         // 1번 유저를 미리 만들어둔다.
-        members.put(autoincrement.getAndIncrement(), new Member("최준호", "temp@gmail.com", "password"));
+        members.put(autoincrement.getAndIncrement(), new Member("홍길동", "gildong@gmail.com", "hello123"));
     }
 
     @Override
