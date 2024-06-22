@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.exceptions.InvalidReferenceException;
@@ -38,7 +39,9 @@ public class BoardService {
     @Transactional
     public BoardResponse createBoard(BoardCreateRequest request) {
         if (request.name() == null) {
-            throw new NullValueException("요청에 필요한 항목이 누락 됐습니다.");
+            ArrayList<String> nullList = null;
+            nullList.add("게시판 이름");
+            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.", nullList);
         }
 
         Board board = new Board(request.name());
@@ -57,7 +60,9 @@ public class BoardService {
     public BoardResponse update(Long id, BoardUpdateRequest request) {
         Board board = boardRepository.findById(id);
         if (request.name() == null) {
-            throw new NullValueException("요청에 필요한 항목이 누락 됐습니다.");
+            ArrayList<String> nullList = new ArrayList<>();
+            nullList.add("게시판 이름");
+            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.", nullList);
         }
 
         board.update(request.name());

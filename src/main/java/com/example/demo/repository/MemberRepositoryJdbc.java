@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+import com.example.demo.exceptions.EmailAlreadyExistsException;
 import com.example.demo.exceptions.InvalidReferenceException;
 import com.example.demo.exceptions.ResourceNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -66,7 +67,7 @@ public class MemberRepositoryJdbc implements MemberRepository {
             }, keyHolder);
             return findById(keyHolder.getKey().longValue());
         } catch (Exception e) {
-            throw new InvalidReferenceException("해당 이메일로 가입한 회원이 존재합니다.");
+            throw new EmailAlreadyExistsException("해당 이메일로 가입한 회원이 존재합니다.");
         }
     }
 
@@ -80,7 +81,7 @@ public class MemberRepositoryJdbc implements MemberRepository {
                     """, member.getName(), member.getEmail(), member.getId());
             return findById(member.getId());
         } catch (Exception e) {
-            throw new InvalidReferenceException("해당 이메일로 가입한 회원이 존재합니다.");
+            throw new EmailAlreadyExistsException("해당 이메일로 가입한 회원이 존재합니다.");
         }
 
     }

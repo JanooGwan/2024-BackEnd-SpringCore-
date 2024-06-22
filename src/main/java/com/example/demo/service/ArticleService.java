@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.exceptions.InvalidReferenceException;
@@ -60,7 +61,12 @@ public class ArticleService {
     @Transactional
     public ArticleResponse create(ArticleCreateRequest request) {
         if (request.author_id() == null || request.board_id() == null || request.title() == null || request.content() == null) {
-            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.");
+            ArrayList<String> nullList= new ArrayList<>();
+            if(request.author_id()==null)  nullList.add("작성자 ID");
+            if(request.board_id()==null) nullList.add("게시판 ID");
+            if(request.title()==null) nullList.add("제목");
+            if(request.content()==null) nullList.add("내용");
+            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.", nullList);
         }
 
         Article article = new Article(
@@ -79,7 +85,11 @@ public class ArticleService {
     @Transactional
     public ArticleResponse update(Long id, ArticleUpdateRequest request) {
         if (request.board_id() == null || request.title() == null || request.content() == null) {
-            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.");
+            ArrayList<String> nullList= new ArrayList<>();
+            if(request.board_id()==null) nullList.add("게시판 ID");
+            if(request.title()==null) nullList.add("제목");
+            if(request.content()==null) nullList.add("내용");
+            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.", nullList);
         }
 
         Article article = articleRepository.findById(id);

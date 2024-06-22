@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.exceptions.NullValueException;
@@ -39,7 +40,11 @@ public class MemberService {
     @Transactional
     public MemberResponse create(MemberCreateRequest request) {
         if (request.name() == null || request.email() == null || request.password() == null) {
-            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.");
+            ArrayList<String> nullList = new ArrayList<>();
+            if (request.name() == null) nullList.add("이름");
+            if (request.email() == null) nullList.add("이메일");
+            if (request.password() == null) nullList.add("비밀번호");
+            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.", nullList);
         }
 
         Member member = memberRepository.insert(
@@ -58,7 +63,11 @@ public class MemberService {
     @Transactional
     public MemberResponse update(Long id, MemberUpdateRequest request) {
         if (request.name() == null || request.email() == null) {
-            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.");
+            ArrayList<String> nullList = new ArrayList<>();
+            if (request.name() == null) nullList.add("이름");
+            if (request.email() == null) nullList.add("이메일");
+            System.out.println(nullList);
+            throw new NullValueException("요청에 필요한 항목이 누락됐습니다.", nullList);
         }
 
         Member member = memberRepository.findById(id);
