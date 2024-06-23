@@ -6,44 +6,33 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Article {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long authorId;
-    private Long boardId;
-    private String title;
-    private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
 
-    public Article(
-        Long id,
-        Long authorId,
-        Long boardId,
-        String title,
-        String content,
-        LocalDateTime createdAt,
-        LocalDateTime modifiedAt
-    ) {
-        this.id = id;
-        this.authorId = authorId;
-        this.boardId = boardId;
+
+    private Long author_id;
+
+    private Long board_id;
+
+    private String title;
+
+    private String content;
+
+    private LocalDateTime created_date;
+
+    private LocalDateTime modified_date;
+
+    protected Article() {
+    }
+
+    public Article(Long author_id, Long board_id, String title, String content) {
+        this.author_id = author_id;
+        this.board_id = board_id;
         this.title = title;
         this.content = content;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
-    }
-
-
-    public Article() {
-
-    }
-
-    public void update(Long boardId, String title, String description) {
-        this.boardId = boardId;
-        this.title = title;
-        this.content = description;
-        this.modifiedAt = LocalDateTime.now();
+        this.created_date = LocalDateTime.now();
     }
 
     public void setId(Long id) {
@@ -54,27 +43,55 @@ public class Article {
         return id;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+
+    public Long getBoard_id() {
+        return board_id;
     }
 
-    public Long getBoardId() {
-        return boardId;
+    public void setBoard_id(Long board_id) {
+        this.board_id = board_id;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getContent() {
         return content;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public LocalDateTime getModifiedAt() {
-        return modifiedAt;
+    public Long getAuthor_id() { return author_id; }
+
+    public LocalDateTime getCreated_date() {
+        return created_date;
+    }
+
+    public LocalDateTime getModified_date() {
+        return modified_date;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.created_date = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.modified_date = LocalDateTime.now();
+    }
+
+    public void update(Long board_id, String title, String content) {
+        this.board_id = board_id;
+        this.title = title;
+        this.content = content;
+        this.modified_date = LocalDateTime.now();
     }
 }

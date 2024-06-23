@@ -41,4 +41,23 @@ public class MemberRepository {
             entityManager.remove(member);
         }
     }
+
+    @Transactional
+    public Member update(Long id, Member updatedMember) {
+        Member existingMember = entityManager.find(Member.class, id);
+        if (existingMember != null) {
+            if (updatedMember.getName() != null) {
+                existingMember.setName(updatedMember.getName());
+            }
+            if (updatedMember.getEmail() != null) {
+                existingMember.setEmail(updatedMember.getEmail());
+            }
+            if (updatedMember.getPassword() != null) {
+                existingMember.setPassword(updatedMember.getPassword());
+            }
+            entityManager.merge(existingMember);
+            return existingMember;
+        }
+        return null;
+    }
 }

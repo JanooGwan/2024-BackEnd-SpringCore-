@@ -12,16 +12,16 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(SnakeCaseStrategy.class)
 public record ArticleResponse(
     Long id,
-    Long authorId,
-    Long boardId,
+    Long author_id,
+    Long board_id,
     String title,
-    String description,
+    String content,
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime createdDate,
+    LocalDateTime created_date,
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime modifiedDate
+    LocalDateTime modified_date
 ) {
 
     public static ArticleResponse of(Article article, Member member, Board board) {
@@ -31,8 +31,8 @@ public record ArticleResponse(
             board.getId(),
             article.getTitle(),
             article.getContent(),
-            article.getCreatedAt(),
-            article.getModifiedAt()
+            article.getCreated_date(),
+            article.getModified_date()
         );
     }
 }

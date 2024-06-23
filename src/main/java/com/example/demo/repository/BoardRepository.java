@@ -42,4 +42,17 @@ public class BoardRepository {
             entityManager.remove(board);
         }
     }
+
+    public Board update(Long id, Board updatedBoard) {
+        Board existingBoard = entityManager.find(Board.class, id);
+        if (existingBoard != null) {
+            if (updatedBoard.getName() != null) {
+                existingBoard.setName(updatedBoard.getName());
+            }
+
+            entityManager.merge(existingBoard);
+            return existingBoard;
+        }
+        return null;
+    }
 }

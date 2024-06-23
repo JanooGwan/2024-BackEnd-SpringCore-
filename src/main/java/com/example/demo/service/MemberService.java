@@ -1,3 +1,4 @@
+
 package com.example.demo.service;
 
 import java.util.ArrayList;
@@ -37,8 +38,10 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+
     public Member update(Long id, Member member) {
-        return memberRepository.save(member);
+        member.setId(id);
+        return memberRepository.update(id, member);
     }
 
     public void delete(Long id) {

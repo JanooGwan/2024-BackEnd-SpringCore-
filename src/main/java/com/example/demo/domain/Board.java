@@ -37,7 +37,6 @@ public class Board {
         return name;
     }
 
-    public void update(String name) {
-        this.name = name;
-    }
+    public void setName(String name) {this.name = name;}
+
 }
