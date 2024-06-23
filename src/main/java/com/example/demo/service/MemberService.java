@@ -12,7 +12,6 @@ import com.example.demo.controller.dto.request.MemberCreateRequest;
 import com.example.demo.controller.dto.request.MemberUpdateRequest;
 import com.example.demo.controller.dto.response.MemberResponse;
 import com.example.demo.domain.Member;
-import com.example.demo.repository.MemberRepository;
 
 @Service
 @Transactional(readOnly = true)

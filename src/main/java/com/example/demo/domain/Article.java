@@ -1,9 +1,13 @@
 package com.example.demo.domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
+@Entity
 public class Article {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long authorId;
     private Long boardId;
@@ -30,14 +34,9 @@ public class Article {
         this.modifiedAt = modifiedAt;
     }
 
-    public Article(Long authorId, Long boardId, String title, String content) {
-        this.id = null;
-        this.authorId = authorId;
-        this.boardId = boardId;
-        this.title = title;
-        this.content = content;
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
+
+    public Article() {
+
     }
 
     public void update(Long boardId, String title, String description) {
@@ -49,10 +48,6 @@ public class Article {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setModifiedAt(LocalDateTime modifiedAt) {
-        this.modifiedAt = modifiedAt;
     }
 
     public Long getId() {

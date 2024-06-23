@@ -1,19 +1,43 @@
 package com.example.demo.repository;
 
+import com.example.demo.domain.Article;
+import com.example.demo.domain.Board;
+import com.example.demo.domain.Member;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceContexts;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
-import com.example.demo.domain.Board;
+public class BoardRepository {
 
-public interface BoardRepository {
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    List<Board> findAll();
+    @Transactional
+    public Board save(Board board) {
+        if (board.getId() == null) {
+            entityManager.persist(board);
+            return board;
+        } else {
+            return entityManager.merge(board);
+        }
+    }
 
-    Board findById(Long id);
+    public Board findById(Long id) {
+        return entityManager.find(Board.class, id);
+    }
 
-    Board insert(Board board);
+    public List<Board> findAll() {
+        return entityManager.createQuery("from Board", Board.class).getResultList();
+    }
 
-    void deleteById(Long id);
-
-    Board update(Board board);
-
+    @Transactional
+    public void deleteById(Long id) {
+        Board board = entityManager.find(Board.class, id);
+        if (board != null) {
+            entityManager.remove(board);
+        }
+    }
 }

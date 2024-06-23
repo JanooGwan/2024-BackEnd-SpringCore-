@@ -4,3 +4,10 @@ spring:
     username: janoogwan39 # 본인의 환경에 맞게 수정한다.
     password: dnldtkd15^^ # 본인의 환경에 맞게 수정한다.
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: 'false'
+    show-sql: 'true'
+    open-in-view: 'false'
