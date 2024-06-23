@@ -68,7 +68,9 @@ public class Article {
         this.content = content;
     }
 
-    public Long getAuthor_id() { return author_id; }
+    public Long getAuthor_id() {
+        return author_id;
+    }
 
     public LocalDateTime getCreated_date() {
         return created_date;

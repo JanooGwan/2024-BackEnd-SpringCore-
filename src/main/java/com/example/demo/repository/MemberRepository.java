@@ -1,7 +1,5 @@
 package com.example.demo.repository;
 
-import com.example.demo.controller.dto.response.MemberResponse;
-import com.example.demo.domain.Article;
 import com.example.demo.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

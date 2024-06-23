@@ -1,19 +1,13 @@
 
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.exceptions.NullValueException;
 
 import com.example.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.controller.dto.request.MemberCreateRequest;
-import com.example.demo.controller.dto.request.MemberUpdateRequest;
-import com.example.demo.controller.dto.response.MemberResponse;
 import com.example.demo.domain.Member;
 
 @Service

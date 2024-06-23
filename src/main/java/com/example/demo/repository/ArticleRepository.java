@@ -1,8 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.controller.dto.response.ArticleResponse;
 import com.example.demo.domain.Article;
-import com.example.demo.domain.Board;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -22,9 +20,7 @@ public class ArticleRepository {
         if (article.getId() == null) {
             entityManager.persist(article);
             return article;
-        }
-
-        else return entityManager.merge(article);
+        } else return entityManager.merge(article);
     }
 
     public Article findById(Long id) {
