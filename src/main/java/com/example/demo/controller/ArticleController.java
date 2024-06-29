@@ -1,41 +1,40 @@
 package com.example.demo.controller;
 
+import com.example.demo.controller.dto.response.ArticleResponse;
 import com.example.demo.domain.Article;
-import com.example.demo.service.ArticleService;
-import com.example.demo.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.repository.ArticleRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/articles")
+@RequiredArgsConstructor
 public class ArticleController {
 
-    private final
-    @Autowired
-    public ArticleController(ArticleService articleService) {
-        this.articleService = articleService;
-    }
+    private final ArticleRepository articleRepository;
 
     @GetMapping
-    public ResponseEntity<List<Article>> getArticles(Model model) {
-        return ResponseEntity.ok(response);
+    @ResponseStatus(HttpStatus.OK)
+    public List<ArticleResponse> getArticles() {
+        return articleRepository.findAllByEnabledTrue();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Article> getArticle(@PathVariable Long id) {
-        Article response = articleService.getById(id);
-        return ResponseEntity.ok(response);
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<ArticleResponse> getArticle(@PathVariable Long id) {
+        return articleRepository.getById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Article> create(@RequestBody Article request) {
-        Article response = articleService.create(request);
-        return ResponseEntity.ok(response);
+    @ResponseStatus(HttpStatus.OK)
+    public void create(@RequestBody Article request) {
+
     }
 
     @PutMapping("/{id}")

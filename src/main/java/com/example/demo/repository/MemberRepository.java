@@ -14,7 +14,5 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Integer> {
-    Optional<MemberResponse> getById(long id);
-    Optional<MemberCreateRequest> getRequestById(long id);
+public interface MemberRepository extends JpaRepository<Member, Long> {
 }

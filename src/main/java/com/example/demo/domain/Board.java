@@ -21,6 +21,7 @@ public class Board {
     private String name;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "board_id")
     List<Article> articles = new ArrayList<>();
 
     @Builder
@@ -28,7 +29,8 @@ public class Board {
         this.name = name;
     }
 
-    public void update(String name) {
-        this.name = name;
+    public void addArticle(Article article) {
+        if(articles == null) articles = new ArrayList<>();
+        articles.add(article);
     }
 }

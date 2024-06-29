@@ -13,7 +13,5 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface ArticleRepository extends JpaRepository<Article, Integer> {
-    Optional<ArticleResponse> getById(long id);
-    Optional<ArticleCreateRequest> getRequestById(long id);
+public interface ArticleRepository extends JpaRepository<Article, Long> {
 }

@@ -18,6 +18,14 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
+    public List<Article> list(){
+        return articleRepository.findAll();
+    }
+
+    public Article detail(Long id) {
+        return articleRepository.findById(id).orElse(null);
+    }
+
     @Transactional
     public void create(Article article) {
         articleRepository.save(article);
@@ -31,7 +39,7 @@ public class ArticleService {
 
 
     @Transactional
-    public void delete(Article article) {
-        articleRepository.delete(article);
+    public void delete(Long id) {
+        articleRepository.deleteById(id);
     }
 }

@@ -14,7 +14,5 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface BoardRepository extends JpaRepository<Board, Integer> {
-    Optional<BoardResponse> getById(long id);
-    Optional<BoardCreateRequest> getRequestById(long id);
+public interface BoardRepository extends JpaRepository<Board, Long> {
 }
