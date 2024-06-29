@@ -1,10 +1,19 @@
 package com.example.demo.controller.dto.request;
 
-public record ArticleCreateRequest(
-        Long author_id,
-        Long board_id,
-        String title,
-        String content
-) {
+import com.example.demo.domain.Board;
+import com.example.demo.domain.Member;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ArticleCreateRequest {
+    Board board;
+    String title;
+    Member author;
+    String content;
 }
