@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.controller.dto.response.BoardResponse;
 import com.example.demo.domain.Board;
 import com.example.demo.domain.Member;
 import com.example.demo.service.BoardService;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -31,20 +33,20 @@ public class BoardController {
     }
 
     @GetMapping("/boards/{id}")
-    public ResponseEntity<Board> getMember(@PathVariable Long id) {
-        Board response = boardService.getById(id);
+    public ResponseEntity<Optional<Board>> getMember(@PathVariable Long id) {
+        Optional<Board> response = boardService.getById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/boards")
-    public ResponseEntity<Board> create(@RequestBody Board request) {
-        Board response = boardService.create(request);
+    public ResponseEntity<BoardResponse> create(@RequestBody Board request) {
+        BoardResponse response = boardService.create(request);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/boards/{id}")
-    public ResponseEntity<Board> update(@PathVariable Long id, @RequestBody Board request) {
-        Board response = boardService.update(id, request);
+    @PutMapping("/boards/{Board}")
+    public ResponseEntity<Board> update(@RequestBody Board request) {
+        Board response = boardService.update(request);
         return ResponseEntity.ok(response);
     }
 

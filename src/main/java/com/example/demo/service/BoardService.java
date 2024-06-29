@@ -1,9 +1,14 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.example.demo.controller.dto.response.ArticleResponse;
+import com.example.demo.controller.dto.response.BoardResponse;
 import com.example.demo.domain.Article;
+import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.BoardRepository;
+import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,21 +21,29 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public List<Board> list(){
+    public List<Board> getAll(){
         return boardRepository.findAll();
     }
 
-    @Transactional
-    public Board create(Board board) {
-        return boardRepository.save(board);
+    public Optional<Board> getById(Long id) {
+        return boardRepository.findById(id);
     }
+
+    @Transactional
+    public BoardResponse create(Board board) {
+        Board saved = boardRepository.save(board);
+        return new BoardResponse(saved.getId(), saved.getName());
+    }
+
 
     @Transactional
     public Board update(Board board) {
         return boardRepository.save(board);
     }
 
-    public void delete(Board board) {
-        boardRepository.delete(board);
+
+    @Transactional
+    public void delete(Long id) {
+        boardRepository.deleteById(id);
     }
 }

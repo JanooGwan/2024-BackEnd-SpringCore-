@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.demo.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +37,20 @@ public class MemberController {
     }
 
     @GetMapping("/members/{id}")
-    public ResponseEntity<Member> getMember(@PathVariable Long id) {
-        Member response = memberService.getById(id);
+    public ResponseEntity<Optional<Member>> getMember(@PathVariable Long id) {
+        Optional<Member> response = memberService.getById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/members")
-    public ResponseEntity<Member> create(@RequestBody Member request) {
-        Member response = memberService.create(request);
+    public ResponseEntity<MemberResponse> create(@RequestBody Member request) {
+        MemberResponse response = memberService.create(request);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/members/{id}")
-    public ResponseEntity<Member> update(@PathVariable Long id, @RequestBody Member request) {
-        Member response = memberService.update(id, request);
+    @PutMapping("/members/{Member}")
+    public ResponseEntity<Member> update(@RequestBody Member request) {
+        Member response = memberService.update(request);
         return ResponseEntity.ok(response);
     }
 

@@ -1,12 +1,13 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 @Entity
@@ -15,22 +16,25 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
     @Column(length = 100, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "board_id")
-    List<Article> articles = new ArrayList<>();
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    public List<Article> articles = new ArrayList<>();
 
-    @Builder
-    public Board(String name) {
-        this.name = name;
-    }
 
     public void addArticle(Article article) {
         if(articles == null) articles = new ArrayList<>();
         articles.add(article);
+    }
+
+    public Long getId() {
+        return this.id = id;
+    }
+
+    public String getName() {
+        return this.name = name;
     }
 }
