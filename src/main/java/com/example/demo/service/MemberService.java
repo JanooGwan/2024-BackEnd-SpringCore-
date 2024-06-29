@@ -13,32 +13,19 @@ import com.example.demo.domain.Member;
 @Service
 public class MemberService {
 
-    private final MemberRepository memberRepository;
-
     @Autowired
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
-
-    public List<Member> getAll() {
-        return memberRepository.findAll();
-    }
-
-    public Member getById(Long id) {
-        return memberRepository.findById(id);
-    }
+    private MemberRepository memberRepository;
 
     public Member create(Member member) {
         return memberRepository.save(member);
     }
 
 
-    public Member update(Long id, Member member) {
-        member.setId(id);
-        return memberRepository.update(id, member);
+    public Member update(Member member) {
+        return memberRepository.save(member);
     }
 
-    public void delete(Long id) {
-        memberRepository.deleteById(id);
+    public void delete(Member member) {
+        memberRepository.delete(member);
     }
 }
