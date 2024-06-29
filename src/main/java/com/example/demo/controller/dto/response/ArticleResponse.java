@@ -32,7 +32,7 @@ public record ArticleResponse(
             article.getTitle(),
             article.getContent(),
             article.getCreated_date(),
-            article.getModified_date()
+            article.getUpdated_date()
         );
     }
 }

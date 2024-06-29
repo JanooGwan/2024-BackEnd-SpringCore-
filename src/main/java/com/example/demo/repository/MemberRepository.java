@@ -50,9 +50,6 @@ public class MemberRepository {
             if (updatedMember.getEmail() != null) {
                 existingMember.setEmail(updatedMember.getEmail());
             }
-            if (updatedMember.getPassword() != null) {
-                existingMember.setPassword(updatedMember.getPassword());
-            }
             entityManager.merge(existingMember);
             return existingMember;
         }

@@ -37,7 +37,6 @@ public class ArticleService {
 
     @Transactional
     public Article update(Long id, Article article) {
-        article.setId(id);
         return articleRepository.update(id, article);
     }
 

@@ -1,99 +1,55 @@
 package com.example.demo.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 @Entity
+@Table(name = "article")
 public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", nullable = false)
+    private Member author;
 
-    private Long author_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id", nullable = false)
+    private Board board;
 
-    private Long board_id;
-
+    @Column(length = 100, nullable = false)
     private String title;
 
+    @Column(length = 1000, nullable = false)
     private String content;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private LocalDateTime created_date;
 
-    private LocalDateTime modified_date;
-
-    protected Article() {
-    }
-
-    public Article(Long author_id, Long board_id, String title, String content) {
-        this.author_id = author_id;
-        this.board_id = board_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private LocalDateTime updated_date;
+    
+    @Builder
+    public Article(Member author_id, Board board_id, String title, String content) {
+        this.author = author_id;
+        this.board = board_id;
         this.title = title;
         this.content = content;
-        this.created_date = LocalDateTime.now();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public Long getBoard_id() {
-        return board_id;
-    }
-
-    public void setBoard_id(Long board_id) {
-        this.board_id = board_id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Long getAuthor_id() {
-        return author_id;
-    }
-
-    public LocalDateTime getCreated_date() {
-        return created_date;
-    }
-
-    public LocalDateTime getModified_date() {
-        return modified_date;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.created_date = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.modified_date = LocalDateTime.now();
-    }
-
-    public void update(Long board_id, String title, String content) {
-        this.board_id = board_id;
+    public void update(Board board_id, String title, String content) {
+        this.board = board_id;
         this.title = title;
         this.content = content;
-        this.modified_date = LocalDateTime.now();
     }
 }
