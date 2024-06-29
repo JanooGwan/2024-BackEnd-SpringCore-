@@ -15,21 +15,19 @@ import java.util.List;
 @RequestMapping("/articles")
 public class ArticleController {
 
-    private final ArticleService articleService;
-
+    private final
     @Autowired
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Article>> getAllArticles(Model model) {
-        List<Article> response = articleService.getAll();
+    public ResponseEntity<List<Article>> getArticles(Model model) {
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
+    public ResponseEntity<Article> getArticle(@PathVariable Long id) {
         Article response = articleService.getById(id);
         return ResponseEntity.ok(response);
     }
