@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.controller.dto.request.BoardUpdateRequest;
 import com.example.demo.controller.dto.response.BoardResponse;
 import com.example.demo.domain.Board;
 import com.example.demo.domain.Member;
@@ -44,9 +45,9 @@ public class BoardController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/boards/{Board}")
-    public ResponseEntity<Board> update(@RequestBody Board request) {
-        Board response = boardService.update(request);
+    @PutMapping("/boards/{id}")
+    public ResponseEntity<BoardResponse> update(@PathVariable Long id, @RequestBody BoardUpdateRequest request) {
+        BoardResponse response = boardService.update(id, request);
         return ResponseEntity.ok(response);
     }
 

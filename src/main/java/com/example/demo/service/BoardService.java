@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.controller.dto.request.BoardUpdateRequest;
 import com.example.demo.controller.dto.response.ArticleResponse;
 import com.example.demo.controller.dto.response.BoardResponse;
 import com.example.demo.domain.Article;
@@ -37,8 +38,12 @@ public class BoardService {
 
 
     @Transactional
-    public Board update(Board board) {
-        return boardRepository.save(board);
+    public BoardResponse update(Long id, BoardUpdateRequest request) {
+        Board board = boardRepository.findBoardById(id);
+        board.update(request.name);
+
+        Board saved = boardRepository.save(board);
+        return new BoardResponse(saved.getId(), saved.getName());
     }
 
 

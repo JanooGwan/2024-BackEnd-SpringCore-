@@ -24,6 +24,9 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     public List<Article> articles = new ArrayList<>();
 
+    public void update(String name) {
+        this.name = name;
+    }
 
     public void addArticle(Article article) {
         if(articles == null) articles = new ArrayList<>();
