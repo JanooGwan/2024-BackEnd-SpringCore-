@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.controller.dto.request.ArticleCreateRequest;
+import com.example.demo.controller.dto.request.ArticleUpdateRequest;
 import com.example.demo.controller.dto.response.ArticleResponse;
 import com.example.demo.domain.Board;
 import com.example.demo.domain.Member;
@@ -57,8 +58,15 @@ public class ArticleService {
 
 
     @Transactional
-    public Article update(Article article) {
-        return articleRepository.save(article);
+    public ArticleResponse update(Long id, ArticleUpdateRequest request)  {
+        Article article = articleRepository.findArticleById(id);
+        Board board = boardRepository.findBoardById(request.board_id);
+
+        article.update(board, request.title, request.content);
+
+        Article saved = articleRepository.save(article);
+
+        return new ArticleResponse(saved.getId(), saved.getTitle(), saved.getContent(), saved.getAuthor().getId(), saved.getBoard().getId(),  saved.getCreated_date(), saved.getUpdated_date());
     }
 
 

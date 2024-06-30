@@ -29,5 +29,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             "FROM Article article")
     List<ArticleResponse> findAllArticles();
 
-
+    Article findArticleById(Long id);
 }

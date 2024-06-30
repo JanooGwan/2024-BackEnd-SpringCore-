@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ArticleUpdateRequest{
-    Long board_id;
-    String title;
-    String content;
+    public Long board_id;
+    public String title;
+    public String content;
 }
