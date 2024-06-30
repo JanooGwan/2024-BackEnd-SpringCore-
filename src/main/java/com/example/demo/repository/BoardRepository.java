@@ -18,5 +18,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
+    @Query("SELECT new com.example.demo.controller.dto.response.BoardResponse(board.id, board.name) " +
+            "FROM Board board")
+    List<BoardResponse> findAllBoards();
+
+    @Query("SELECT new com.example.demo.controller.dto.response.BoardResponse(board.id, board.name) " +
+            "FROM Board board WHERE board.id = :id")
+    Optional<Board> findById(@Param("id") Long id);
+
     Board findBoardById(Long id);
 }

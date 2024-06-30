@@ -26,8 +26,8 @@ public class BoardController {
     }
 
     @GetMapping("/boards")
-    public ResponseEntity<List<Board>> getMembers() {
-        List<Board> response = boardService.getAll();
+    public ResponseEntity<List<BoardResponse>> getMembers() {
+        List<BoardResponse> response = boardService.getAll();
         return ResponseEntity.ok(response);
 
     }

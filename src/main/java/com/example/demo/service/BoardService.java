@@ -21,8 +21,8 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public List<Board> getAll(){
-        return boardRepository.findAll();
+    public List<BoardResponse> getAll(){
+        return boardRepository.findAllBoards();
     }
 
     public Optional<Board> getById(Long id) {
