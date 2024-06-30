@@ -81,9 +81,17 @@ public class Article {
         return this.author;
     }
 
+    public void setAuthor(Member author) {
+        this.author = author;
+    }
+
     public Board getBoard() {
         return this.board;
     }
+
+    public Long getBoard_id() {return this.board.getId();}
+
+    public Long getAuthor_id() {return this.author.getId();};
 
     public LocalDateTime getCreated_date() {
         return this.created_date;

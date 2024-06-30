@@ -3,9 +3,13 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.controller.dto.request.ArticleCreateRequest;
 import com.example.demo.controller.dto.response.ArticleResponse;
 import com.example.demo.domain.Board;
+import com.example.demo.domain.Member;
 import com.example.demo.repository.ArticleRepository;
+import com.example.demo.repository.BoardRepository;
+import com.example.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +24,12 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
+    @Autowired
+    private BoardRepository boardRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
     public List<ArticleResponse> getAll(){
         return articleRepository.findAllArticles();
     }
@@ -33,9 +43,16 @@ public class ArticleService {
     }
 
     @Transactional
-    public ArticleResponse create(Article article) {
+    public ArticleResponse create(ArticleCreateRequest request) {
+        Board board = boardRepository.findBoardById(request.board_id);
+        Member author = memberRepository.findMemberById(request.author_id);
+
+        Article article = new Article();
+        article.update(board, request.title, request.content);
+        article.setAuthor(author);
+
         Article saved = articleRepository.save(article);
-        return new ArticleResponse(saved.getId(), saved.getTitle(), saved.getContent(), saved.getAuthor().getName(), saved.getBoard().getName(),  saved.getCreated_date(), saved.getUpdated_date());
+        return new ArticleResponse(saved.getId(), saved.getTitle(), saved.getContent(), saved.getAuthor().getId(), saved.getBoard().getId(),  saved.getCreated_date(), saved.getUpdated_date());
     }
 
 

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ArticleCreateRequest {
-    Board board;
-    String title;
-    Member author;
-    String content;
+    public Long board_id;
+    public Long author_id;
+    public String title;
+    public String content;
 }

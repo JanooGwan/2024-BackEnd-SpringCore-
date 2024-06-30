@@ -17,15 +17,17 @@ import java.util.Optional;
 
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    @Query("SELECT new com.example.demo.controller.dto.response.ArticleResponse(article.id, article.title, article.content, article.author.name, article.board.name, article.created_date, article.updated_date) " +
+    @Query("SELECT new com.example.demo.controller.dto.response.ArticleResponse(article.id, article.title, article.content, article.author.id, article.board.id, article.created_date, article.updated_date) " +
             "FROM Article article WHERE article.board.id = :id")
     List<ArticleResponse> findByBoardId(@Param("id") Long boardId);
 
-    @Query("SELECT new com.example.demo.controller.dto.response.ArticleResponse(article.id, article.title, article.content, article.author.name, article.board.name, article.created_date, article.updated_date) " +
+    @Query("SELECT new com.example.demo.controller.dto.response.ArticleResponse(article.id, article.title, article.content, article.author.id, article.board.id, article.created_date, article.updated_date) " +
             "FROM Article article WHERE article.id = :id")
     Optional<Article> findById(@Param("id") Long id);
 
-    @Query("SELECT new com.example.demo.controller.dto.response.ArticleResponse(article.id, article.title, article.content, article.author.name, article.board.name, article.created_date, article.updated_date) " +
+    @Query("SELECT new com.example.demo.controller.dto.response.ArticleResponse(article.id, article.title, article.content, article.author.id, article.board.id, article.created_date, article.updated_date) " +
             "FROM Article article")
     List<ArticleResponse> findAllArticles();
+
+
 }

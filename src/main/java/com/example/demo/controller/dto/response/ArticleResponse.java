@@ -15,19 +15,19 @@ public class ArticleResponse {
     private Long id;
     private String title;
     private String content;
-    private String author;
-    private String board;
+    private Long author_id;
+    private Long board_id;
     private LocalDateTime created_date;
     private LocalDateTime updated_date;
 
 
     // 생성자
-    public ArticleResponse(Long id, String title, String content, String author, String board, LocalDateTime created_date, LocalDateTime updated_date) {
+    public ArticleResponse(Long id, String title, String content, Long author_id, Long board_id, LocalDateTime created_date, LocalDateTime updated_date) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.author = author;
-        this.board = board;
+        this.author_id = author_id;
+        this.board_id = board_id;
         this.created_date = created_date;
         this.updated_date = updated_date;
     }
@@ -46,12 +46,12 @@ public class ArticleResponse {
         return content;
     }
 
-    public String getAuthor() {
-        return author;
+    public Long getAuthor_id() {
+        return author_id;
     }
 
-    public String getBoard() {
-        return board;
+    public Long getBoard_id() {
+        return board_id;
     }
 
     public LocalDateTime getCreated_date() {
