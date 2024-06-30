@@ -16,6 +16,7 @@ public class MemberResponse {
     public Long getId() {
         return this.id;
     }
+
     public String getName() {
         return this.name;
     }

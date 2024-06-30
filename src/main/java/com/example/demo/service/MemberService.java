@@ -25,7 +25,7 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public List<MemberResponse> getAll(){
+    public List<MemberResponse> getAll() {
         return memberRepository.findAllMembers();
     }
 

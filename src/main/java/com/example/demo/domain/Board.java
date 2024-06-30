@@ -1,6 +1,5 @@
 package com.example.demo.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,7 +28,7 @@ public class Board {
     }
 
     public void addArticle(Article article) {
-        if(articles == null) articles = new ArrayList<>();
+        if (articles == null) articles = new ArrayList<>();
         articles.add(article);
     }
 

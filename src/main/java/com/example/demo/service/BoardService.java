@@ -4,12 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.controller.dto.request.BoardUpdateRequest;
-import com.example.demo.controller.dto.response.ArticleResponse;
 import com.example.demo.controller.dto.response.BoardResponse;
-import com.example.demo.domain.Article;
-import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.BoardRepository;
-import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +18,7 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public List<BoardResponse> getAll(){
+    public List<BoardResponse> getAll() {
         return boardRepository.findAllBoards();
     }
 

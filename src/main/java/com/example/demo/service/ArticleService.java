@@ -31,7 +31,7 @@ public class ArticleService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public List<ArticleResponse> getAll(){
+    public List<ArticleResponse> getAll() {
         return articleRepository.findAllArticles();
     }
 
@@ -58,7 +58,7 @@ public class ArticleService {
 
 
     @Transactional
-    public ArticleResponse update(Long id, ArticleUpdateRequest request)  {
+    public ArticleResponse update(Long id, ArticleUpdateRequest request) {
         Article article = articleRepository.findArticleById(id);
         Board board = boardRepository.findBoardById(request.board_id);
 
@@ -66,7 +66,7 @@ public class ArticleService {
 
         Article saved = articleRepository.save(article);
 
-        return new ArticleResponse(saved.getId(), saved.getTitle(), saved.getContent(), saved.getAuthor().getId(), saved.getBoard().getId(),  saved.getCreated_date(), saved.getUpdated_date());
+        return new ArticleResponse(saved.getId(), saved.getTitle(), saved.getContent(), saved.getAuthor().getId(), saved.getBoard().getId(), saved.getCreated_date(), saved.getUpdated_date());
     }
 
 

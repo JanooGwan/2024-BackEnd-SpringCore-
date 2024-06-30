@@ -3,13 +3,9 @@ package com.example.demo.controller;
 import com.example.demo.controller.dto.request.BoardUpdateRequest;
 import com.example.demo.controller.dto.response.BoardResponse;
 import com.example.demo.domain.Board;
-import com.example.demo.domain.Member;
 import com.example.demo.service.BoardService;
-import com.example.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

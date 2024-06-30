@@ -1,9 +1,7 @@
 package com.example.demo.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -48,16 +46,6 @@ public class Article {
         updated_date = LocalDateTime.now();
     }
 
-    /*
-    @Builder
-    public Article(Member author, Board board, String title, String content) {
-        this.author = author;
-        this.board = board;
-        this.title = title;
-        this.content = content;
-    }
-
-     */
 
     public void update(Board board_id, String title, String content) {
         this.board = board_id;
@@ -89,9 +77,15 @@ public class Article {
         return this.board;
     }
 
-    public Long getBoard_id() {return this.board.getId();}
+    public Long getBoard_id() {
+        return this.board.getId();
+    }
 
-    public Long getAuthor_id() {return this.author.getId();};
+    public Long getAuthor_id() {
+        return this.author.getId();
+    }
+
+    ;
 
     public LocalDateTime getCreated_date() {
         return this.created_date;

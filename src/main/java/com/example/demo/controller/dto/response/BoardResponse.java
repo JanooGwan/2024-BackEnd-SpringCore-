@@ -1,6 +1,5 @@
 package com.example.demo.controller.dto.response;
 
-import com.example.demo.domain.Board;
 
 public class BoardResponse {
     Long id;

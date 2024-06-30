@@ -29,7 +29,7 @@ public class ArticleController {
     @GetMapping("/articles")
     public ResponseEntity<List<ArticleResponse>> getArticles(@RequestParam(required = false) Long boardId) {
         List<ArticleResponse> response;
-        if(boardId == null)
+        if (boardId == null)
             response = articleService.getAll();
         else
             response = articleService.getByBoardId(boardId);
