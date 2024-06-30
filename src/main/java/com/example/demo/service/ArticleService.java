@@ -53,7 +53,7 @@ public class ArticleService {
         article.setAuthor(author);
 
         Article saved = articleRepository.save(article);
-        return new ArticleResponse(saved.getId(), saved.getTitle(), saved.getContent(), saved.getAuthor().getId(), saved.getBoard().getId(),  saved.getCreated_date(), saved.getUpdated_date());
+        return new ArticleResponse(saved.getId(), saved.getTitle(), saved.getContent(), saved.getAuthor().getId(), saved.getBoard().getId(), saved.getCreated_date(), saved.getUpdated_date());
     }
 
 
