@@ -27,8 +27,7 @@ public class Member {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     public List<Article> articles = new ArrayList<>();
 
 

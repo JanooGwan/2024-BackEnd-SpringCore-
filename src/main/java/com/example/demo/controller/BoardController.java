@@ -27,26 +27,26 @@ public class BoardController {
     }
 
     @GetMapping("/boards")
-    public ResponseEntity<List<BoardResponse>> getMembers() {
+    public ResponseEntity<List<BoardResponse>> getBoards() {
         List<BoardResponse> response = boardService.getAll();
         return ResponseEntity.ok(response);
 
     }
 
     @GetMapping("/boards/{id}")
-    public ResponseEntity<Optional<Board>> getMember(@PathVariable Long id) {
+    public ResponseEntity<Optional<Board>> getBoard(@PathVariable Long id) {
         Optional<Board> response = boardService.getById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/boards")
-    public ResponseEntity<BoardResponse> create(@RequestBody Board request) {
+    public ResponseEntity<BoardResponse> createBoard(@RequestBody Board request) {
         BoardResponse response = boardService.create(request);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/boards/{id}")
-    public ResponseEntity<BoardResponse> update(@PathVariable Long id, @RequestBody BoardUpdateRequest request) {
+    public ResponseEntity<BoardResponse> updateBoard(@PathVariable Long id, @RequestBody BoardUpdateRequest request) {
         BoardResponse response = boardService.update(id, request);
         return ResponseEntity.ok(response);
     }

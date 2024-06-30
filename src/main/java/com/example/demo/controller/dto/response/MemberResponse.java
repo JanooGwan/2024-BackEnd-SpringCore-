@@ -14,17 +14,17 @@ public class MemberResponse {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getEmail() {
-        return name;
+        return this.email;
     }
 
     public String getPassword() {
-        return name;
+        return this.password;
     }
 }

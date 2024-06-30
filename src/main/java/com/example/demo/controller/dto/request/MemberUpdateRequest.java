@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class MemberUpdateRequest {
-    String name;
-    String email;
+    public String name;
+    public String email;
+    public String password;
 }

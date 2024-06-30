@@ -43,14 +43,14 @@ public class MemberController {
     }
 
     @PostMapping("/members")
-    public ResponseEntity<MemberResponse> create(@RequestBody Member request) {
+    public ResponseEntity<MemberResponse> createMember(@RequestBody Member request) {
         MemberResponse response = memberService.create(request);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/members/{id}")
-    public ResponseEntity<Member> update(@PathVariable Long id, @RequestBody Member request) {
-        Member response = memberService.update(request);
+    public ResponseEntity<MemberResponse> updateMember(@PathVariable Long id, @RequestBody MemberUpdateRequest request) {
+        MemberResponse response = memberService.update(id, request);
         return ResponseEntity.ok(response);
     }
 

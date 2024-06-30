@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 
+import com.example.demo.controller.dto.request.BoardUpdateRequest;
+import com.example.demo.controller.dto.request.MemberUpdateRequest;
 import com.example.demo.controller.dto.response.BoardResponse;
 import com.example.demo.controller.dto.response.MemberResponse;
 import com.example.demo.domain.Article;
@@ -39,8 +41,12 @@ public class MemberService {
 
 
     @Transactional
-    public Member update(Member member) {
-        return memberRepository.save(member);
+    public MemberResponse update(Long id, MemberUpdateRequest request) {
+        Member member = memberRepository.findMemberById(id);
+        member.update(request.name, request.email, request.password);
+
+        Member saved = memberRepository.save(member);
+        return new MemberResponse(saved.getId(), saved.getName(), saved.getEmail(), saved.getPassword());
     }
 
 
