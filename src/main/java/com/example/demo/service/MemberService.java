@@ -23,8 +23,8 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public List<Member> getAll(){
-        return memberRepository.findAll();
+    public List<MemberResponse> getAll(){
+        return memberRepository.findAllMembers();
     }
 
     public Optional<Member> getById(Long id) {

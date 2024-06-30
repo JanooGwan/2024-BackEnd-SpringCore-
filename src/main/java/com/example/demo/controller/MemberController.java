@@ -30,8 +30,8 @@ public class MemberController {
     }
 
     @GetMapping("/members")
-    public ResponseEntity<List<Member>> getMembers() {
-        List<Member> response = memberService.getAll();
+    public ResponseEntity<List<MemberResponse>> getMembers() {
+        List<MemberResponse> response = memberService.getAll();
         return ResponseEntity.ok(response);
 
     }
@@ -48,8 +48,8 @@ public class MemberController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/members/{Member}")
-    public ResponseEntity<Member> update(@RequestBody Member request) {
+    @PutMapping("/members/{id}")
+    public ResponseEntity<Member> update(@PathVariable Long id, @RequestBody Member request) {
         Member response = memberService.update(request);
         return ResponseEntity.ok(response);
     }
