@@ -52,4 +52,7 @@ public class Member {
     public String getPassword() {
         return this.password = password;
     }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

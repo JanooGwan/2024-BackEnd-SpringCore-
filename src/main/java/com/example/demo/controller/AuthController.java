@@ -32,13 +32,13 @@ public class AuthController {
         return "회원가입 성공";
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/authenticat
     public String createAuthenticationToken(@RequestBody Member member) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(member.getUsername(), member.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(member.getEmail(), member.getPassword()));
         } catch (AuthenticationException e) {
             throw new Exception("이메일 또는 비밀번호가 일치하지 않습니다.", e);
         }
-        return jwtUtil.generateToken(member.getUsername());
+        return jwtUtil.generateToken(member.getEmail());
     }
 }
