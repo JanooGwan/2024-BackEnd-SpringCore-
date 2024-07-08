@@ -1,10 +1,13 @@
 package com.example.demo.security;
 
+import com.example.demo.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationManagerResolver;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,18 +23,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserDetailsService userDetailsService;
+    @Lazy
+    private final MyUserDetailsService userDetailsService;
+
+    @Lazy
     private final JwtRequestFilter jwtRequestFilter;
 
-    public SecurityConfig(UserDetailsService userDetailsService, JwtRequestFilter jwtRequestFilter) {
+    @Autowired
+    public SecurityConfig(@Lazy MyUserDetailsService userDetailsService, @Lazy JwtRequestFilter jwtRequestFilter) {
         this.userDetailsService = userDetailsService;
         this.jwtRequestFilter = jwtRequestFilter;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
+        http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/authenticate", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -44,12 +51,13 @@ public class SecurityConfig {
     }
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

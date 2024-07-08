@@ -3,26 +3,38 @@ package com.example.demo.controller;
 import com.example.demo.domain.Member;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.security.JwtUtil;
+import com.example.demo.security.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/auth")
+@CrossOrigin
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
+    public AuthController(@Lazy AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
+    @Autowired
+    @Lazy
     private MemberRepository memberRepository;
 
     @Autowired
+    @Lazy
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    @Lazy
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
@@ -32,8 +44,8 @@ public class AuthController {
         return "회원가입 성공";
     }
 
-    @PostMapping("/authenticat
-    public String createAuthenticationToken(@RequestBody Member member) throws Exception {
+    @PostMapping("/login")
+    public String createLoginToken(@RequestBody Member member) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(member.getEmail(), member.getPassword()));
         } catch (AuthenticationException e) {
